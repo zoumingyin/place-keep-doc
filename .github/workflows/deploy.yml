@@ -1,40 +1,59 @@
+# ==================================================================================
+# ==          最终工作流 (Yarn & 混合目录结构)          ==
+# ==================================================================================
+
 name: Deploy VitePress to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # 检出代码
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # 设置 Node.js 环境
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: 20
           cache: "yarn"
-          cache-dependency-path: "yarn.lock"
 
-      # 安装依赖
       - name: Install dependencies
-        run: |
-          yarn install
+        run: yarn install --frozen-lockfile
 
-      # 构建 VitePress
-      - name: Build VitePress
-        run: |
-          yarn docs:build
+      # ✅ 正确的构建命令: 'build' (对应 package.json 的修改)
+      - name: Build with VitePress
+        run: yarn build
 
-      # 部署到 GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      # ✅ 正确的产物路径: '.vitepress/dist' (与您的修改一致)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          branch: gh-pages
-          folder: .vitepress/dist
-          token: ${{ secrets.GITHUB_TOKEN }}
+          path: .vitepress/dist
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
