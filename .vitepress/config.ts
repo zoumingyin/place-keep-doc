@@ -4,7 +4,6 @@ export default defineConfig({
   title: "我的文档站",
   description: "功能齐全的 VitePress 文档",
   base: "/place-keep-doc/",
-  srcDir: "./docs",
   themeConfig: {
     logo: "/logo.svg",
     nav: [
@@ -12,15 +11,15 @@ export default defineConfig({
       {
         text: "指南",
         items: [
-          { text: "基础指南", link: "/guide/" },
-          { text: "进阶指南", link: "/guide/advanced" },
+          { text: "基础指南", link: "/docs/guide/" },
+          { text: "进阶指南", link: "/docs/guide/advanced" },
         ],
       },
     ],
     sidebar: {
-      "/guide/": [
-        { text: "基础指南", link: "/guide/" },
-        { text: "进阶指南", link: "/guide/advanced" },
+      "/docs/guide/": [
+        { text: "基础指南", link: "/docs/guide/" },
+        { text: "进阶指南", link: "/docs/guide/advanced" },
       ],
     },
     search: {

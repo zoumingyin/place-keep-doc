@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读
-      link: /guide/
+      link: /docs/guide/
     - theme: alt
       text: GitHub
       link: https://github.com/zoumingyin/place-keep-doc
