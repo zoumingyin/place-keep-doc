@@ -1,0 +1,11 @@
+/* 覆盖品牌色与字体 */
+:root {
+  --vp-c-brand-1: #646cff;
+  --vp-font-family-base: "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 暗色模式支持 */
+:root.dark {
+  --vp-c-brand-1: #888;
+}
+/* 自定义页脚、头部样式也可在此覆盖 */
