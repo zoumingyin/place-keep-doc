@@ -17,7 +17,7 @@ A modern documentation site built with VitePress, featuring:
 ## Getting Started
 
 1. Install dependencies:
-```bash
+```bash 
 pnpm install
 ```
 
