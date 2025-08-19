@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "我的文档站",
   description: "功能齐全的 VitePress 文档",
-  base: "/",
+  base: "/place-keep-doc/",
   srcDir: "./docs",
   themeConfig: {
     logo: "/logo.svg",
